@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+for i in {1..10}; do
+	unset i
+	echo "Best School";
+done
