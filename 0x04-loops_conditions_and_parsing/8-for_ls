@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Prints the content of the current directory
+#+ without the preceding number and dash
+
+files=$( ls )
+for file in $files;
+do
+	echo "${file#*-}"
+done
