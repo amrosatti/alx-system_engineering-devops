@@ -2,6 +2,6 @@
 # Prints "Best School" 10 times
 
 for i in {1..10}; do
-	unset i
 	echo "Best School";
 done
+export i
