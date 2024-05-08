@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Lists currently running processes
 
-ps -H -eo user,pid,pcpu,pmem,vsz,rss,tty,stat,start_time,time,comm
+ps -H -eo user,pid,pcpu,pmem,vsz,rss,tty,stat,start_time,ctime,comm
