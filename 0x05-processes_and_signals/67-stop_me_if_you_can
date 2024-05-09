@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-# Kills a specific process by its name pattern
-
-pkill -f --signal SIGINT highlander
