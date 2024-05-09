@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 # Displays a text indefinitely
 
+trap 'echo "I am invicible!!!"' SIGTERM
 while true
 do
 	echo "To infinity and beyond"
 	sleep 2
-
-	trap "echo 'I am invicible!!!'" SIGTERM
 done
