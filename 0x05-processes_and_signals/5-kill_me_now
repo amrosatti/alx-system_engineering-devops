@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Kills a certain process that loops indefinitely
+
+kill "$(ps ax | pgrep -f to_infinity_and_beyond)"
