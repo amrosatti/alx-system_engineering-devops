@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Kills a specific process by its name pattern
+
+pkill -f to_infinity_and_beyond
