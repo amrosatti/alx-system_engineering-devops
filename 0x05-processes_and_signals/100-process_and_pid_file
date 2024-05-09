@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Creates a file with the pid and terminates
+#+ only when recieves sigquit or sigterm
+
+function term() {
+	rm /var/run/myscript.pid
+	exit
+}
+
+trap 'echo "Y U no love me ?!";term' SIGINT
+trap 'echo "I hate the kill command";term' SIGTERM
+
+echo $$ > /var/run/myscript.pid
+
+while true;
+do
+	echo 'To infinity and beyond'
+done
