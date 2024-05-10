@@ -4,7 +4,7 @@
 function pstart() {
 	./manage_my_process &
 	sudo touch /var/run/my_process.pid
-	"$(echo "$!" | sudo tee /var/run/my_process.pid)" > /dev/null
+	echo "$!" | sudo tee /var/run/my_process.pid > /dev/null
 }
 function pstop() {
 	pkill -f ./manage_my_process
