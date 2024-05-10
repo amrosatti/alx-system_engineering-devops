@@ -3,7 +3,7 @@
 
 function pstart() {
 	./manage_my_process &
-	sudo echo "$!" > var/run/my_process.pid
+	echo "$!" | sudo tee var/run/my_process.pid
 }
 function pstop() {
 	kill "$(sudo cat /var/run/my_process.pid)"
