@@ -7,8 +7,8 @@ function pstart() {
 	echo "$!" > var/run/my_process.pid
 }
 function pstop() {
-	kill "$(cat /var/run/my_process.pid)"
-	rm /var/run/my_process.pid
+	kill "$(sudo cat /var/run/my_process.pid)"
+	sudo rm -f /var/run/my_process.pid
 }
 
 case "$1" in
