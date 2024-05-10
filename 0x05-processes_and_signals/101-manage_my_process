@@ -3,11 +3,10 @@
 
 function pstart() {
 	./manage_my_process &
-	sudo touch /var/run/my_process.pid
-	echo "$!" | sudo tee var/run/my_process.pid
+	"$(echo "$!" | sudo tee var/run/my_process.pid)" > /dev/null
 }
 function pstop() {
-	kill "$(sudo cat /var/run/my_process.pid)"
+	pkill -f ./manage_my_process
 	sudo rm -f /var/run/my_process.pid
 }
 
