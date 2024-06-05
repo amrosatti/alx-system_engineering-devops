@@ -1,6 +1,6 @@
 # Three-Server Web Infrastructure for foobar.com
 
-![Distributed Infrastructure Design](https://imgur.com/a/7k9e8VC)
+![Distributed Infrastructure Design](images/Distributes_web_infrastructure.jpg)
 
 **Scenario:** A user tries to access "www.foobar.com"
 

@@ -1,6 +1,6 @@
 # A One Server Web Infrastructure
 
-![Simple Web Stack Design](https://imgur.com/a/CgcyaZu)
+![Simple Web Stack Design](images/Simple_web_stack.jpg)
 
 **Scenario:** A user wants to visit a website "www.foobar.com"
 
