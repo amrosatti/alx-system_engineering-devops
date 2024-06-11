@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Pings an IP address 5 times passed as an argument
+#+ If no argument passed an error occurs and displays the error message
+
+if [ $# -ne 1 ];
+then
+	echo "Usage: $(basename "$0") {IP_ASSRESS}" >&2; exit 1
+fi
+
+ping -c 5 "$1"
