@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Configures hosts file to resolve localhost and facebook.com
+#+ into given IPs
+
+cp /etc/hosts ~/hosts.new
+sed -i 'localhost$/s/^127\..\{3,5\}/127.0.0.2/' -e 'facebook.com$/d/' ~/hosts.new
+echo -e '8.8.8.8\tfacebook.com' > ~/hosts.new
+cp -f ~/hosts.new /etc/hosts
