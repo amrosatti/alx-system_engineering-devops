@@ -1,0 +1,5 @@
+# Configures ssh connections to not use password and use specified key
+
+Host *
+	IdentityFile ~/.ssh/school
+	PasswordAuthentication no
