@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Uses 'ssh' to connect to a server using a private key in '.ssh' directory
+
+eval `ssh-agent -s`
+ssh-add ~/.ssh/school
+ssh ubuntu@34.224.4.6
