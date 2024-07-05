@@ -6,13 +6,13 @@ exec { 'nginx-repo':
 }
 
 exec { 'update-index':
-  command => 'apt-get update',
+  command => 'sudo apt-get update',
   path    => '/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin',
 }
 
 package { 'nginx':
   ensure  => installed,
-  require => Exec['nginx-repo', 'update index'],
+  require => Exec['nginx-repo', 'update-index'],
 }
 
 exec { 'HTTP-allow':
@@ -36,7 +36,7 @@ file { '/var/www/html/404.html':
 
 file { 'default-config':
   ensure  => file,
-  path    => '/etc/nginx/sites-enabled/default',
+  path    => '/etc/nginx/sites-available/default',
   content =>
 "server {
 	listen 80 default_server;
