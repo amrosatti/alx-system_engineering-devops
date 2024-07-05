@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Configures Nginx server so that '/redirect_me' is redirecting to another page
+
+SERVER_CONFIG=\
+"server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+		root /var/www/html;
+	index index.html index.htm index.nginx-debian.html;
+	server_name _;
+	location / {
+		try_files \$uri \$uri =404;
+	}
+
+	error_page 404 /404.html;
+	location /404.html {
+		internal;
+	}
+
+	if (\$request_filename ~ redirect_me) {
+		rewrite ^ https://www.google.com permanent;
+	}
+}
+"
+
+
+sudo apt-get update
+sudo apt-get install nginx -y
+
+echo 'Hello World!' | sudo tee /var/www/html/index.nginx-debian.html > /dev/null 2>&1
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html > /dev/null 2>&1
+echo "$SERVER_CONFIG" | sudo tee /etc/nginx/sites-available/default > /dev/null 2>&1
+
+if [ "$(sudo pgrep -c nginx)" -le 0 ];
+then
+	sudo service nginx start;
+else
+	sudo service nginx restart;
+fi
