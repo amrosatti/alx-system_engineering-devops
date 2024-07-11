@@ -9,17 +9,17 @@ LB_CFG=\
 
 #--$DOMAIN-params-begin--
 
+backend $DOMAIN-backend
+        balance roundrobin
+        server 118437-web-01 34.224.4.6:80 check
+        server 118437-web-02 18.208.120.244:80 check
+
 frontend $DOMAIN-frontend
         bind *:80
         mode http
         default_backend $DOMAIN-backend
 
-backend $DOMAIN-backend
-        balance roundrobin
-        server 118437-web-01 34.224.4.6:80 check
-        server 118437-web-02 18.208.120.244:80 check
 #--$DOMAIN-params-end--
-
 "
 
 
