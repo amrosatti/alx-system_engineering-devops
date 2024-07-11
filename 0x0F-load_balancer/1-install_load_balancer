@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Install and configure HAproxy load balancer
+
+LB_CFG=\
+"
+frontend http
+        bind *:80
+        mode http
+        default_backend web_servers
+
+backend web_servers
+        balance roundrobin
+        server 118437-web-01 34.224.4.6:80 check
+        server 118437-web-02 18.208.120.244:80 check
+"
+
+# Update and Install
+sudo apt-get update -y > /dev/null 2>&1
+sudo apt-get install --no-install-recommends software-properties-common -y > /dev/null 2>&1
+sudo add-apt-repository ppa:vbernat/haproxy -y > /dev/null 2>&1
+sudo apt-get install haproxy=2.8.\* > /dev/null 2>&1
+
+# Configure HAproxy and save a copy of origin
+echo "$LB_CFG" | sudo tee -a /etc/haproxy/haproxy.cfg > /dev/null 2>&1
+echo "ENABLED=1" | sudo tee -a /etc/default/haproxy > /dev/null 2>&1
+
+# Restart/Start HAproxy service
+if [ "$(sudo pgrep -c haproxy)" -le 0 ];
+then
+	sudo service haproxy start;
+else
+	sudo service haproxy restart;
+fi
