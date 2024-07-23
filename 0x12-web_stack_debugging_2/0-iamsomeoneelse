@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Runs the `whoami` command under the user passed as an argument
+
+if [ $# -ne 1 ];
+then
+	echo "usage: $(basename "$0") <user>" >&2;
+	exit 1;
+fi
+
+sudo runuser -l "$1" -c whoami;
