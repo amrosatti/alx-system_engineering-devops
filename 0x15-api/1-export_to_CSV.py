@@ -1,11 +1,5 @@
 #!/usr/bin/python3
-"""Script uses a given REST API, to fetch data
-
-Args:
-    sys.argv[1]: Employee ID
-
-Returns:
-    (str): Information about the employee's TODO list progress
+"""Script uses a given REST API, to fetch data and exports it to CSV file
 """
 import csv
 import requests
