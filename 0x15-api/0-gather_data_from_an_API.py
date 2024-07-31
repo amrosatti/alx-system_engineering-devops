@@ -8,8 +8,8 @@ Returns:
     (str): Information about the employee's TODO list progress
 """
 
-import requests
 from sys import argv
+import requests
 
 
 def main():
