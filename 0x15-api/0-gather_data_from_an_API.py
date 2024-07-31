@@ -2,24 +2,24 @@
 """Script uses a given REST API, to fetch data
 
 Args:
-    argv[1]: Employee ID
+    sys.argv[1]: Employee ID
 
 Returns:
     (str): Information about the employee's TODO list progress
 """
 
-from sys import argv
 import requests
+import sys
 
 
 def main():
     """Driver function so the module won't run when imported
     """
-    if len(argv) != 2 or not argv[1].isdigit():
-        print('usage: {} <employee_id>'.format(argv[0]))
+    if len(sys.argv) != 2 or not sys.argv[1].isdigit():
+        print('usage: {} <employee_id>'.format(sys.argv[0]))
         return
 
-    emp_id = int(argv[1]) - 1
+    emp_id = int(sys.argv[1]) - 1
     users = requests.get('https://jsonplaceholder.typicode.com/users')
     if users.status_code != 200:
         return
