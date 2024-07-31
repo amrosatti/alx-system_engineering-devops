@@ -1,55 +1,24 @@
 #!/usr/bin/python3
-"""Script uses a given REST API, to fetch data
-
-Args:
-    sys.argv[1]: Employee ID
-
-Returns:
-    (str): Information about the employee's TODO list progress
+"""Script uses a given REST API, to fetch ToDo list info for a given id
 """
-
 import requests
 import sys
 
 
-def main():
-    """Driver function so the module won't run when imported
-    """
-    if len(sys.argv) != 2 or not sys.argv[1].isdigit():
-        print('usage: {} <employee_id>'.format(sys.argv[0]))
-        return
-
-    emp_id = int(sys.argv[1]) - 1
-    users = requests.get('https://jsonplaceholder.typicode.com/users')
-    if users.status_code != 200:
-        return
-
-    todos = requests.get('https://jsonplaceholder.typicode.com/todos')
-    if todos.status_code != 200:
-        return
-
-    employees = users.json()
-    if emp_id >= len(employees):
-        return
-
-    employee = employees[emp_id]
-    todos = todos.json()
-
-    n_done, n_total = 0, 0
-    done_titles = []
-
-    for task in todos:
-        if task.get('userId') == employee.get('id'):
-            n_total += 1
-            if task.get('completed'):
-                n_done += 1
-                done_titles.append(task.get('title'))
-
-    print(f"Employee {employee.get('name')} is done with",
-          f"tasks({n_done}/{n_total}):")
-
-    [print('\t {}'.format(title)) for title in done_titles]
-
-
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) != 2 or not sys.argv[1].isdigit():
+        print(f'usage: {sys.argv[0]} <employee_id>')
+        sys.exit(1)
+
+    user_id = int(sys.argv[1])
+    api = 'https://jsonplaceholder.typicode.com/'
+    user = requests.get(f'{api}users/{user_id}').json()
+    todos = requests.get(f'{api}todos', params={'userId': user_id}).json()
+
+    completed_titles = [task.get('title') for task in todos
+                        if task.get('completed')]
+
+    print(f'Employee {user.get("name")} is done with',
+          f'tasks({len(completed_titles)}/{len(todos)}):')
+
+    [print(f'\t {title}') for title in completed_titles]

@@ -7,46 +7,29 @@ Args:
 Returns:
     (str): Information about the employee's TODO list progress
 """
-
-import sys
+import csv
 import requests
+import sys
 
 
 def main():
     """Driver function so the module won't run when imported
     """
     if len(sys.argv) != 2 or not sys.argv[1].isdigit():
-        print('usage: {} <employee_id>'.format(sys.argv[0]))
-        return
+        print(f'usage: {sys.argv[0]} <employee_id>')
+        sys.exit(1)
 
-    emp_id = int(sys.argv[1]) - 1
-    users = requests.get('https://jsonplaceholder.typicode.com/users')
-    if users.status_code != 200:
-        return
+    usr_id = int(sys.argv[1])
+    api = 'https://jsonplaceholder.typicode.com/'
+    usr = requests.get(f'{api}users/{usr_id}').json()
+    usrname = usr.get('username')
+    todos = requests.get(f'{api}todos', params={'userId': usr_id}).json()
 
-    todos = requests.get('https://jsonplaceholder.typicode.com/todos')
-    if todos.status_code != 200:
-        return
-
-    employees = users.json()
-    if emp_id >= len(employees):
-        return
-
-    emp = employees[emp_id]
-    todos = todos.json()
-
-    emp_tasks = [tsk for tsk in todos if tsk.get('userId') == emp.get('id')]
-
-    with open('{}.csv'.format(emp.get('id')), 'w', encoding='utf-8') as csvf:
-        for task in emp_tasks:
-            csvf.write(
-                        '"{}","{}","{}","{}"\n'.format(
-                                                        emp.get('id'),
-                                                        emp.get('name'),
-                                                        task.get('completed'),
-                                                        task.get('title')
-                                                    )
-                        )
+    with open('{}.csv'.format(usr.get('id')), 'w', encoding='utf-8') as csvf:
+        writer = csv.writer(csvf, quoting=csv.QUOTE_ALL)
+        [writer.writerow(
+                    [usr_id, usrname, tsk.get('completed'), tsk.get('title')]
+                ) for tsk in todos]
 
 
 if __name__ == '__main__':
